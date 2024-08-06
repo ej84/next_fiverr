@@ -2,7 +2,6 @@
 import { FormEvent, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
 import { Description } from "@/components/description";
 import { api } from "@/convex/_generated/api";
 import { Doc, Id } from "@/convex/_generated/dataModel";
@@ -12,11 +11,8 @@ import { useMutation, useQuery } from "convex/react";
 import { Label } from "@/components/ui/label";
 import { Images } from "@/components/images";
 import { TitleEditor } from "@/app/gig/omg/edit/title-editor";
-import { Offers } from "@/app/[username]/[gigId]/_components/offers";
 import { OffersEditor } from "./_components/offers-editor";
 import Link from "next/link";
-import Image from "next/image";
-import { ConvexImage } from "@/components/convex-image";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -160,9 +156,32 @@ const Edit = ({ params }: EditPageProps) => {
               setSelectedImages(Array.from(event.target.files || []))
             }
             multiple
+            className="cursor-pointer w-fit bg-zinc-100 text-zinc-700 border-zinc-300 hover:bg-zinc-200 hover:border-zinc-400 focus:bg-zinc-200"
+            disabled={selectedImages.length !== 0}
           />
+          <Button
+            type="submit"
+            disabled={selectedImages.length === 0}
+            className="w-fit"
+          >
+            Upload Image
+          </Button>
         </div>
       </form>
+      <div className="flex rounded-md border border-zinc-300 items-center space-x-4 w-fit p-2 cursor-default">
+        <p className="text-muted-foreground"> Creator:{"Richard Jeong"}</p>
+
+        <OffersEditor gigId={gig._id} />
+
+        <h2 className="font-semibold">About this gig</h2>
+      </div>
+
+      <Description
+        initialContent={gig.description}
+        editable={true}
+        className="pb-40 mt-12 2xl:px-[200px] xl:px-[90px] xs:px-[17px]"
+        gigId={gig._id}
+      />
     </>
   );
 };
