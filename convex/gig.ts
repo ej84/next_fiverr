@@ -183,5 +183,13 @@ export const remove = mutation({
     }
 
     const userId = identity.subject as Id<"users">;
+
+    const existingFavorite = await ctx.db.query("userFavorites").withIndex("by_user_gig", (q) => q.eq("userId", userId).eq("gigId", args.id)).unique();
+
+    if (existingFavorite) {
+      await ctx.db.delete(existingFavorite._id);
+    }
+
+    await ctx.db.delete(args.id);
   },
 });
