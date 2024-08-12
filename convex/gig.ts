@@ -182,9 +182,26 @@ export const remove = mutation({
       throw new Error("Unauthorized");
     }
 
-    const userId = identity.subject as Id<"users">;
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_token", (q) =>
+        q.eq("tokenIdentifier", identity.tokenIdentifier)
+      )
+      .unique();
 
-    const existingFavorite = await ctx.db.query("userFavorites").withIndex("by_user_gig", (q) => q.eq("userId", userId).eq("gigId", args.id)).unique();
+    if (user === null) {
+      return;
+    }
+
+    //const userId = identity.subject as Id<"users">;
+    const userId = user._id;
+
+    const existingFavorite = await ctx.db
+      .query("userFavorites")
+      .withIndex("by_user_gig", (q) =>
+        q.eq("userId", userId).eq("gigId", args.id)
+      )
+      .unique();
 
     if (existingFavorite) {
       await ctx.db.delete(existingFavorite._id);

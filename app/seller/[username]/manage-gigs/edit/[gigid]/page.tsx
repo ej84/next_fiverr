@@ -2,7 +2,7 @@
 import { FormEvent, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Description } from "@/components/description";
+//import { Description } from "@/components/description";
 import { api } from "@/convex/_generated/api";
 import { Doc, Id } from "@/convex/_generated/dataModel";
 import { useApiMutation } from "@/hooks/use-api-mutation";
@@ -10,8 +10,8 @@ import { useAuth } from "@clerk/nextjs";
 import { useMutation, useQuery } from "convex/react";
 import { Label } from "@/components/ui/label";
 import { Images } from "@/components/images";
-import { TitleEditor } from "@/app/gig/omg/edit/title-editor";
-import { OffersEditor } from "./_components/offers-editor";
+//import { TitleEditor } from "@/app/gig/omg/edit/title-editor";
+//import { OffersEditor } from "./_components/offers-editor";
 import Link from "next/link";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -139,8 +139,8 @@ const Edit = ({ params }: EditPageProps) => {
           Delete
         </Button>
       </div>
-
-      <TitleEditor id={gig._id} title={gig.title} />
+      {/*
+      <TitleEditor id={gig._id} title={gig.title} /> */}
       <div className="w-[800px]">
         <Images images={gig.images} title={gig.title} allowDelete={true} />
       </div>
@@ -168,7 +168,7 @@ const Edit = ({ params }: EditPageProps) => {
           </Button>
         </div>
       </form>
-      <div className="flex rounded-md border border-zinc-300 items-center space-x-4 w-fit p-2 cursor-default">
+      {/*<div className="flex rounded-md border border-zinc-300 items-center space-x-4 w-fit p-2 cursor-default">
         <p className="text-muted-foreground"> Creator:{"Richard Jeong"}</p>
 
         <OffersEditor gigId={gig._id} />
@@ -181,7 +181,7 @@ const Edit = ({ params }: EditPageProps) => {
         editable={true}
         className="pb-40 mt-12 2xl:px-[200px] xl:px-[90px] xs:px-[17px]"
         gigId={gig._id}
-      />
+      />*/}
     </>
   );
 };
