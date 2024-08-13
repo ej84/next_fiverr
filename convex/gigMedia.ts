@@ -32,3 +32,18 @@ export const sendImage = mutation({
     });
   },
 });
+
+export const remove = mutation({
+  args: { storageId: v.id("_storage") },
+  handler: async (ctx, args) => {
+    const media = await ctx.db
+      .query("gigMedia")
+      .withIndex("by_storageId", (q) => q.eq("storageId", args.storageId))
+      .unique();
+
+    if (!media) {
+      throw new Error("Media not found");
+    }
+    await ctx.db.delete(media._id);
+  },
+});

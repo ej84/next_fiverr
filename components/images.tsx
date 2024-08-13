@@ -12,7 +12,7 @@ import { ImageWithUrlType } from "@/types";
 import Image from "next/image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { MoreHorizontal, Trash2 } from "lucide-react";
-//import { Actions } from "@/app/seller/[username]/manage-gigs/edit/[gigId]/_components/actions";
+import { Actions } from "@/app/seller/[username]/manage-gigs/edit/[gigId]/_components/actions";
 import { useState } from "react";
 
 interface ImagesProps {
@@ -40,15 +40,15 @@ export const Images = ({
           return (
             <CarouselItem key={image._id}>
               <AspectRatio ratio={16 / 9}>
-                {/*allowDelete && (
-                  <Actions
-                    side="bottom"
-                    sideOffset={10}
-                    storageId={image.storageId}
-                  >
-                    <Trash2 />
-                  </Actions>
-                )*/}
+                allowDelete && (
+                <Actions
+                  side="bottom"
+                  sideOffset={10}
+                  storageId={image.storageId}
+                >
+                  <Trash2 />
+                </Actions>
+                )
                 <Image
                   src={
                     image.url ||

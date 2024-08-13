@@ -2,7 +2,7 @@
 import { FormEvent, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-//import { Description } from "@/components/description";
+import { Description } from "@/components/description";
 import { api } from "@/convex/_generated/api";
 import { Doc, Id } from "@/convex/_generated/dataModel";
 import { useApiMutation } from "@/hooks/use-api-mutation";
@@ -10,8 +10,8 @@ import { useAuth } from "@clerk/nextjs";
 import { useMutation, useQuery } from "convex/react";
 import { Label } from "@/components/ui/label";
 import { Images } from "@/components/images";
-//import { TitleEditor } from "@/app/gig/omg/edit/title-editor";
-//import { OffersEditor } from "./_components/offers-editor";
+import { TitleEditor } from "@/components/title-editor";
+import { OffersEditor } from "./_components/offers-editor/";
 import Link from "next/link";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -119,69 +119,69 @@ const Edit = ({ params }: EditPageProps) => {
   return (
     <>
       <div className="space-y-12 2xl:px-64 xl:px-36 md:px-12 px-12">
-        <Button
-          disabled={publishPending || unpublishPending}
-          variant={"default"}
-          onClick={onPublish}
-        >
-          {published ? "Unpublish" : "Publish"}
-        </Button>
-        <Link href={`/${gig.seller.username}/${gig._id}`}>
-          <Button disabled={removePending} variant={"secondary"}>
-            Preview
-          </Button>
-        </Link>
-        <Button
-          disabled={removePending}
-          variant={"secondary"}
-          onClick={onDelete}
-        >
-          Delete
-        </Button>
-      </div>
-      {/*
-      <TitleEditor id={gig._id} title={gig.title} /> */}
-      <div className="w-[800px]">
-        <Images images={gig.images} title={gig.title} allowDelete={true} />
-      </div>
-      <form onSubmit={handleSendImage} className="space-y-2">
-        <Label className="font-normal">Add up to 5 images:</Label>
-        <div className="flex space-x-2">
-          <Input
-            id="image"
-            type="file"
-            accept="image/*"
-            ref={imageInput}
-            onChange={(event) =>
-              setSelectedImages(Array.from(event.target.files || []))
-            }
-            multiple
-            className="cursor-pointer w-fit bg-zinc-100 text-zinc-700 border-zinc-300 hover:bg-zinc-200 hover:border-zinc-400 focus:bg-zinc-200"
-            disabled={selectedImages.length !== 0}
-          />
+        <div className="flex justify-end pr-2 space-x-2">
           <Button
-            type="submit"
-            disabled={selectedImages.length === 0}
-            className="w-fit"
+            disabled={publishPending || unpublishPending}
+            variant={"default"}
+            onClick={onPublish}
           >
-            Upload Image
+            {published ? "Unpublish" : "Publish"}
+          </Button>
+          <Link href={`/${gig.seller.username}/${gig._id}`}>
+            <Button disabled={removePending} variant={"secondary"}>
+              Preview
+            </Button>
+          </Link>
+          <Button
+            disabled={removePending}
+            variant={"secondary"}
+            onClick={onDelete}
+          >
+            Delete
           </Button>
         </div>
-      </form>
-      {/*<div className="flex rounded-md border border-zinc-300 items-center space-x-4 w-fit p-2 cursor-default">
+        <TitleEditor id={gig._id} title={gig.title} />
+        <div className="w-[800px]">
+          <Images images={gig.images} title={gig.title} allowDelete={true} />
+        </div>
+        <form onSubmit={handleSendImage} className="space-y-2">
+          <Label className="font-normal">Add up to 5 images:</Label>
+          <div className="flex space-x-2">
+            <Input
+              id="image"
+              type="file"
+              accept="image/*"
+              ref={imageInput}
+              onChange={(event) =>
+                setSelectedImages(Array.from(event.target.files || []))
+              }
+              multiple
+              className="cursor-pointer w-fit bg-zinc-100 text-zinc-700 border-zinc-300 hover:bg-zinc-200 hover:border-zinc-400 focus:bg-zinc-200"
+              disabled={selectedImages.length !== 0}
+            />
+            <Button
+              type="submit"
+              disabled={selectedImages.length === 0}
+              className="w-fit"
+            >
+              Upload Image
+            </Button>
+          </div>
+        </form>
+      </div>
+      <div className="flex rounded-md border border-zinc-300 items-center space-x-4 w-fit p-2 cursor-default">
         <p className="text-muted-foreground"> Creator:{"Richard Jeong"}</p>
 
         <OffersEditor gigId={gig._id} />
 
         <h2 className="font-semibold">About this gig</h2>
       </div>
-
       <Description
         initialContent={gig.description}
         editable={true}
         className="pb-40 mt-12 2xl:px-[200px] xl:px-[90px] xs:px-[17px]"
         gigId={gig._id}
-      />*/}
+      />
     </>
   );
 };
