@@ -49,20 +49,56 @@ export const ContentEditor = ({ offer, gigId, tier }: ContentEditorProps) => {
     <div className="space-y-4">
       <div>
         <Label htmlFor="title">Title:</Label>
-        <Input id="title" placeholder="title" value={title} onChange={(e) => setTitle(e.target.value)} />
+        <Input
+          id="title"
+          placeholder="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
       </div>
       <div className="">
         <Label htmlFor="price">Price (USD):</Label>
-        <Input id="price" placeholder="price" type="number" value={price} onChange={(e) => setPrice(parseInt(e.target.value))} />
+        <Input
+          id="price"
+          placeholder="price"
+          type="number"
+          value={price}
+          onChange={(e) => setPrice(parseInt(e.target.value))}
+        />
       </div>
       <div>
         <Label htmlFor="description">Description:</Label>
-        <Input id="description" placeholder="description" value={description} onChange={(e) => setDescription(e.target.value)} />
+        <Input
+          id="description"
+          placeholder="description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
       </div>
       <div>
         <Label htmlFor="delivery">Number of days for delivery:</Label>
-        <Input id="delivery" placeholder="delivery days" />
+        <Input
+          id="delivery"
+          placeholder="delivery days"
+          type="number"
+          value={deliveryDays}
+          onChange={(e) => setDeliveryDays(parseInt(e.target.value))}
+        />
       </div>
+      <div>
+        <Label htmlFor="revisions">Number of revisions:</Label>
+        <Input
+          id="revisions"
+          placeholder="revisions"
+          type="number"
+          value={revisions}
+          onChange={(e) => setRevisions(parseInt(e.target.value))}
+        />
+      </div>
+
+      <Button className="w-full" onClick={handleSave}>
+        Save
+      </Button>
     </div>
   );
 };
